@@ -7,7 +7,6 @@ it wil generate the **calories, protein, sugar** and such contents.
 
 ## Who will use it?
 
-
 - Subway Customer
 - Dietitian
 - Subway Employee
@@ -20,6 +19,13 @@ calories, and I found it very helpful when restaurants post their calories count
 get to decide the ingredients, which causes the nutrition count to fluctuate. Therefore, I am making this application
 to make this process easier and convenient. 
 
+## User Stories
+
+- As a user, I want to be able to create a new sandwich. 
+- As a user, I want to be able to view what is currently in my sandwich.
+- As a user, I want to be able to add ingredients into my new sandwich.
+- As a user, I want to be able to remove an ingredient from my sandwich.
+- As a user, I want to be able to see the nutrition value of my sandwich.
 
 
  
