@@ -22,7 +22,8 @@ to make this process easier and convenient.
 ## User Stories
 
 - As a user, I want to be able to create a new sandwich. 
-- As a user, I want to be able to view what is currently in my sandwich.
+- As a user, I want to be able to view what is in my sandwich.
+- As a user, I want to be able to save a sandwich and access it whenever I want to.
 - As a user, I want to be able to add ingredients into my new sandwich.
 - As a user, I want to be able to remove an ingredient from my sandwich.
 - As a user, I want to be able to see the nutrition value of my sandwich.
