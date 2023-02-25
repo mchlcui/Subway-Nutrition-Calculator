@@ -1,10 +1,9 @@
 package ui;
 
+import model.Ingredient;
 import model.Sandwich;
 
-import java.util.Locale;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SandwichApp {
@@ -55,7 +54,7 @@ public class SandwichApp {
         System.out.println("What would you like your sandwich to be called?");
         this.command = input.next();
         this.command = this.command.toLowerCase();
-        return new Sandwich(this.command, 0, 0, 0);
+        return new Sandwich(this.command);
     }
 
     public void chooseBread(Sandwich f) {
@@ -65,11 +64,11 @@ public class SandwichApp {
         this.command = input.next();
         this.command = this.command.toLowerCase();
         if (this.command.equals("w")) {
-            f.addIngredient("Italian White Bread", 200, 7, 5);
+            f.addIngredient(new Ingredient("Italian White Bread", 200, 7, 5));
         } else if (this.command.equals("g")) {
-            f.addIngredient("9-Grain Wheat Bread", 210, 8, 5);
+            f.addIngredient(new Ingredient("9-Grain Wheat Bread", 210, 8, 5));
         } else if (this.command.equals("h")) {
-            f.addIngredient("Italian Herb & Cheese Bread", 240, 9, 5);
+            f.addIngredient(new Ingredient("Italian Herb & Cheese Bread", 240, 9, 5));
         } else {
             System.out.println("Your selection is invalid");
         }
@@ -94,13 +93,13 @@ public class SandwichApp {
             if (this.command.equals("d")) {
                 keep = false;
             } else if (this.command.equals("s")) {
-                f.addIngredient("Steak", 110, 17, 1);
+                f.addIngredient(new Ingredient("Steak", 110, 17, 1));
                 chooseMeat(f);
             } else if (this.command.equals("m")) {
-                f.addIngredient("Meatball", 230, 12, 5);
+                f.addIngredient(new Ingredient("Meatball", 230, 12, 5));
                 chooseMeat(f);
             } else if (this.command.equals("t")) {
-                f.addIngredient("Tuna", 250, 12, 0);
+                f.addIngredient(new Ingredient("Tuna", 250, 12, 0));
                 chooseMeat(f);
             } else {
                 System.out.println("Your selection is invalid");
@@ -127,13 +126,13 @@ public class SandwichApp {
             if (this.command.equals("d")) {
                 keep = false;
             } else if (this.command.equals("p")) {
-                f.addIngredient("Provolone", 50, 4, 0);
+                f.addIngredient(new Ingredient("Provolone", 50, 4, 0));
                 chooseCheese(f);
             } else if (this.command.equals("a")) {
-                f.addIngredient("American Cheese", 40, 2, 0);
+                f.addIngredient(new Ingredient("American Cheese", 40, 2, 0));
                 chooseCheese(f);
             } else if (this.command.equals("s")) {
-                f.addIngredient("Swiss Cheese", 50, 4, 0);
+                f.addIngredient(new Ingredient("Swiss Cheese", 50, 4, 0));
                 chooseCheese(f);
             } else {
                 System.out.println("Your selection is invalid");
@@ -160,13 +159,13 @@ public class SandwichApp {
             if (this.command.equals("d")) {
                 keep = false;
             } else if (this.command.equals("l")) {
-                f.addIngredient("Lettuce", 0, 0, 0);
+                f.addIngredient(new Ingredient("Lettuce", 0, 0, 0));
                 chooseVegetable(f);
             } else if (this.command.equals("c")) {
-                f.addIngredient("Cucumber", 0, 0, 0);
+                f.addIngredient(new Ingredient("Cucumber", 0, 0, 0));
                 chooseVegetable(f);
             } else if (this.command.equals("o")) {
-                f.addIngredient("Onion", 0, 0, 0);
+                f.addIngredient(new Ingredient("Onion", 0, 0, 0));
                 chooseVegetable(f);
             }  else {
                 System.out.println("Your selection is invalid");
@@ -193,13 +192,13 @@ public class SandwichApp {
             if (this.command.equals("d")) {
                 keep = false;
             } else if (this.command.equals("b")) {
-                f.addIngredient("BBQ Sauce", 25, 0, 5);
+                f.addIngredient(new Ingredient("BBQ Sauce", 25, 0, 5));
                 chooseSauce(f);
             } else if (this.command.equals("m")) {
-                f.addIngredient("Mayonnaise", 100, 0, 0);
+                f.addIngredient(new Ingredient("Mayonnaise", 100, 0, 0));
                 chooseSauce(f);
             } else if (this.command.equals("y")) {
-                f.addIngredient("Yellow Mustard", 10, 1, 0);
+                f.addIngredient(new Ingredient("Yellow Mustard", 10, 1, 0));
                 chooseSauce(f);
             }  else {
                 System.out.println("Your selection is invalid");
@@ -253,7 +252,7 @@ public class SandwichApp {
     }
 
     public void viewIngredients(Sandwich f) {
-        List<String> name = f.displayIngredients();
+        List<String> name = f.allIngredients();
         int i = 0;
         int index = name.size();
         for (i = 0; i < index; i++) {
