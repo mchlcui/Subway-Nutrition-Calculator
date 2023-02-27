@@ -11,16 +11,20 @@ public class Sandwich {
 
     List<Ingredient> sandwich = new ArrayList<>();   // creates a list for ingredients that are in the sandwich
 
-    private static int totalC = 0;    // setting the initial total calories to 0 as the sandwich is empty
-    private static int totalP = 0;    // setting the initial total protein to 0 as the sandwich is empty
-    private static int totalS = 0;    // setting the initial total sugar to 0 as the sandwich is empty
+    private static int totalC;    // setting the initial total calories to 0 as the sandwich is empty
+    private static int totalP;    // setting the initial total protein to 0 as the sandwich is empty
+    private static int totalS;    // setting the initial total sugar to 0 as the sandwich is empty
 
     //Requires: n to have a length > 0
     //Effects: Setting n as the name that is given to the sandwich. Creates a new ArrayList named sandwich that
     //contains all the ingredients that is going into the sandwich.
     public Sandwich(String n) {
         name = n;
+        totalC = 0;    // setting the initial total calories to 0 as the sandwich is empty
+        totalP = 0;    // setting the initial total protein to 0 as the sandwich is empty
+        totalS = 0;
     }
+
 
 
     //Modifies: This
@@ -56,25 +60,25 @@ public class Sandwich {
     //Effects: Add up all the calories from the ingredients in the current sandwich
     public int calculateTotalCalories() {
         for (Ingredient ingredient : sandwich) {
-            this.totalC += ingredient.getCalories();
+            totalC += ingredient.getCalories();
         }
-        return this.totalC;
+        return totalC;
     }
 
     //Effects: Add up all the proteins from the ingredients in the current sandwich
     public int calculateTotalProtein() {
         for (Ingredient ingredient : sandwich) {
-            this.totalP += ingredient.getProtein();
+            totalP += ingredient.getProtein();
         }
-        return this.totalP;
+        return totalP;
     }
 
     //Effects: Add up all the sugars  from the ingredients in the current sandwich
     public int calculateTotalSugar() {
         for (Ingredient ingredient : sandwich) {
-            this.totalS += ingredient.getSugar();
+            totalS += ingredient.getSugar();
         }
-        return this.totalS;
+        return totalS;
     }
 
     //Effects: Return the sandwich's name
