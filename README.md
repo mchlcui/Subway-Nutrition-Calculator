@@ -27,6 +27,7 @@ to make this process easier and convenient.
 - As a user, I want to be able to add ingredients into my new sandwich.
 - As a user, I want to be able to remove an ingredient from my sandwich.
 - As a user, I want to be able to see the nutrition value of my sandwich.
-
+- As a user, I want to be able to load my previous sandwich and make adjustments.
+- As a user, I want to be reminded and given the option to save my sandwich or not.
 
  
