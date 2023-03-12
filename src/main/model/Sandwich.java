@@ -4,7 +4,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sandwich {
+public class Sandwich implements Writable {
     // Represent the sandwich the user is making
 
     String name;  // the given name to the sandwich
@@ -84,6 +84,26 @@ public class Sandwich {
     //Effects: Return the sandwich's name
     public String getName() {
         return name;
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("Ingredients", thingiesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray thingiesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Ingredient ingredient : sandwich) {
+            jsonArray.put(ingredient.toJson());
+        }
+
+        return jsonArray;
     }
 
 }
