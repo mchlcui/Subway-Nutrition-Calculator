@@ -20,7 +20,7 @@ public class SandwichTest {
 
     @Test
     void testAddIngredient() {
-        Ingredient steak = new Ingredient ("Steak", 220, 15, 5);
+        Ingredient steak = new Ingredient ("Steak", 220, 15, 5, Category.MEAT);
         testSandwich.addIngredient(steak);
         Ingredient first = testSandwich.getIngredient(0);
         Assertions.assertEquals(steak, first);
@@ -32,9 +32,9 @@ public class SandwichTest {
         display.add("Steak");
         display.add("Provolone");
         display.add("White Bread");
-        Ingredient steak = new Ingredient ("Steak", 220, 15, 5);
-        Ingredient cheese = new Ingredient ("Provolone", 50, 5, 1);
-        Ingredient bread = new Ingredient ("White Bread", 220, 1, 5);
+        Ingredient steak = new Ingredient ("Steak", 220, 15, 5, Category.MEAT);
+        Ingredient cheese = new Ingredient ("Provolone", 50, 5, 1, Category.CHEESE);
+        Ingredient bread = new Ingredient ("White Bread", 220, 1, 5, Category.BREAD);
         testSandwich.addIngredient(steak);
         testSandwich.addIngredient(cheese);
         testSandwich.addIngredient(bread);
@@ -43,9 +43,9 @@ public class SandwichTest {
 
     @Test
     void testRemoveIngredient() {
-        Ingredient steak = new Ingredient ("Steak", 220, 15, 5);
-        Ingredient cheese = new Ingredient ("Provolone", 50, 5, 1);
-        Ingredient bread = new Ingredient ("White Bread", 220, 1, 5);
+        Ingredient steak = new Ingredient ("Steak", 220, 15, 5, Category.MEAT);
+        Ingredient cheese = new Ingredient ("Provolone", 50, 5, 1, Category.CHEESE);
+        Ingredient bread = new Ingredient ("White Bread", 220, 1, 5, Category.BREAD);
         testSandwich.addIngredient(steak);
         testSandwich.addIngredient(cheese);
         testSandwich.addIngredient(bread);
@@ -62,9 +62,9 @@ public class SandwichTest {
 
     @Test
     void testCalculateTotalCal() {
-        Ingredient steak = new Ingredient ("Steak", 220, 15, 5);
-        Ingredient cheese = new Ingredient ("Provolone", 50, 5, 1);
-        Ingredient bread = new Ingredient ("White Bread", 220, 1, 5);
+        Ingredient steak = new Ingredient ("Steak", 220, 15, 5, Category.MEAT);
+        Ingredient cheese = new Ingredient ("Provolone", 50, 5, 1, Category.CHEESE);
+        Ingredient bread = new Ingredient ("White Bread", 220, 1, 5, Category.BREAD);
         testSandwich.addIngredient(steak);
         testSandwich.addIngredient(cheese);
         testSandwich.addIngredient(bread);
@@ -73,9 +73,9 @@ public class SandwichTest {
 
     @Test
     void testCalculateTotalPro() {
-        Ingredient steak = new Ingredient ("Steak", 220, 15, 5);
-        Ingredient cheese = new Ingredient ("Provolone", 50, 5, 1);
-        Ingredient bread = new Ingredient ("White Bread", 220, 1, 5);
+        Ingredient steak = new Ingredient ("Steak", 220, 15, 5, Category.MEAT);
+        Ingredient cheese = new Ingredient ("Provolone", 50, 5, 1, Category.CHEESE);
+        Ingredient bread = new Ingredient ("White Bread", 220, 1, 5, Category.BREAD);
         testSandwich.addIngredient(steak);
         testSandwich.addIngredient(cheese);
         testSandwich.addIngredient(bread);
@@ -83,9 +83,9 @@ public class SandwichTest {
     }
     @Test
     void testCalculateTotalSug() {
-        Ingredient steak = new Ingredient ("Steak", 220, 15, 5);
-        Ingredient cheese = new Ingredient ("Provolone", 50, 5, 1);
-        Ingredient bread = new Ingredient ("White Bread", 220, 1, 5);
+        Ingredient steak = new Ingredient ("Steak", 220, 15, 5, Category.MEAT);
+        Ingredient cheese = new Ingredient ("Provolone", 50, 5, 1, Category.CHEESE);
+        Ingredient bread = new Ingredient ("White Bread", 220, 1, 5, Category.BREAD);
         testSandwich.addIngredient(steak);
         testSandwich.addIngredient(cheese);
         testSandwich.addIngredient(bread);
@@ -97,4 +97,8 @@ public class SandwichTest {
         Assertions.assertEquals("random", testSandwich.getName());
     }
 
+    @Test
+    void testGetSize() {
+        Assertions.assertFalse(testSandwich.getSixInch());
+    }
 }

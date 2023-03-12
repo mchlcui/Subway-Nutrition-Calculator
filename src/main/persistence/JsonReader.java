@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 import org.json.*;
 import model.Category;
 
-
+//citation: used given example as sample code
 // Represents a reader that reads sandwiches from JSON data in file.
 public class JsonReader {
 
@@ -26,7 +26,8 @@ public class JsonReader {
     // if there is an error that occurs, then throws an IOexception
     public Sandwich read() throws IOException {
         String data = file(source);
-        JSONObject jsobj = new JSONObject(data);
+        JSONObject jsobj;
+        jsobj = new JSONObject(data);
         return parseSandwich(jsobj);
     }
 
@@ -44,7 +45,9 @@ public class JsonReader {
     // EFFECTS: parses sandwich from JSON object then return
     private Sandwich parseSandwich(JSONObject jsobj) {
         String name = jsobj.getString("name");
+        boolean sixinch = jsobj.getBoolean("size");
         Sandwich sw = new Sandwich(name);
+        sw.setSixinch(sixinch);
         addingredients(sw, jsobj);
         return sw;
     }
@@ -52,7 +55,7 @@ public class JsonReader {
     // MODIFIES: Sandwich
     // EFFECTIONS: parses ingredients from JSON and adds it to
     private void addingredients(Sandwich sw, JSONObject jsobj) {
-        JSONArray jsonArray = jsobj.getJSONArray("ingredients");
+        JSONArray jsonArray = jsobj.getJSONArray("Ingredients");
         for (Object json: jsonArray) {
             JSONObject nextThing = (JSONObject) json;
             addIngredient(sw, nextThing);
@@ -64,8 +67,11 @@ public class JsonReader {
     // EFFECTS: parses ingredients from the JSON object and adds them to sandwich.
     private void addIngredient(Sandwich sw, JSONObject jsobj) {
         String name = jsobj.getString("name");
+        int calories = jsobj.getInt("calories");
+        int protein = jsobj.getInt("protein");
+        int sugar = jsobj.getInt("sugar");
         Category category = Category.valueOf(jsobj.getString("category"));
-        Ingredient ingredient = new Ingredient(name, category);
+        Ingredient ingredient = new Ingredient(name, calories, protein, sugar, category);
         sw.addIngredient(ingredient);
     }
 

@@ -1,8 +1,13 @@
 package ui;
 
+import model.Category;
 import model.Ingredient;
 import model.Sandwich;
+import persistence.JsonWriter;
+import persistence.JsonReader;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 
@@ -10,12 +15,19 @@ public class SandwichApp {
     private Scanner input;
     String command = null;
 
+    private static final String JSON_STORE = "./data/workroom.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
-    boolean sixinch = false;
+
+
+    private Sandwich sandwich;
 
 
     public SandwichApp() {
         input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runSandwichApp();
     }
 
@@ -30,23 +42,28 @@ public class SandwichApp {
                 keep = false;
                 System.out.println("Thanks for using the SandwichApp!");
             } else if (this.command.equals("c")) {
-                Sandwich f = newSandwich();
-                chooseBread(f);
-                chooseMeat(f);
-                chooseCheese(f);
-                chooseVegetable(f);
-                chooseSauce(f);
-                chooseSize(f);
-                viewIngredients(f);
-                displayNutrition(f);
+                sandwich = newSandwich();
+                chooseBread();
+                chooseMeat();
+                chooseCheese();
+                chooseVegetable();
+                chooseSauce();
+                chooseSize();
+                viewIngredients();
+                displayNutrition();
+                saveSandwich();
+            } else if (this.command.equals("m")) {
+                loadSandwich();
             }
         }
     }
 
+
+
     public void displayOptions() {
         System.out.println("q to quit the application");
         System.out.println("c to create a new sandwich");
-        System.out.println("m to modify a existing sandwich");
+        System.out.println("m to view a saved sandwich");
     }
 
     public Sandwich newSandwich() {
@@ -57,18 +74,18 @@ public class SandwichApp {
         return new Sandwich(this.command);
     }
 
-    public void chooseBread(Sandwich f) {
+    public void chooseBread() {
         input = new Scanner(System.in);
         System.out.println("Please select your desired bred");
         displayBreadOptions();
         this.command = input.next();
         this.command = this.command.toLowerCase();
         if (this.command.equals("w")) {
-            f.addIngredient(new Ingredient("Italian White Bread", 200, 7, 5));
+            sandwich.addIngredient(new Ingredient("Italian White Bread", 200, 7, 5, Category.BREAD));
         } else if (this.command.equals("g")) {
-            f.addIngredient(new Ingredient("9-Grain Wheat Bread", 210, 8, 5));
+            sandwich.addIngredient(new Ingredient("9-Grain Wheat Bread", 210, 8, 5, Category.BREAD));
         } else if (this.command.equals("h")) {
-            f.addIngredient(new Ingredient("Italian Herb & Cheese Bread", 240, 9, 5));
+            sandwich.addIngredient(new Ingredient("Italian Herb & Cheese Bread", 240, 9, 5, Category.BREAD));
         } else {
             System.out.println("Your selection is invalid");
         }
@@ -82,7 +99,7 @@ public class SandwichApp {
     }
 
 
-    public void chooseMeat(Sandwich f) {
+    public void chooseMeat() {
         input = new Scanner(System.in);
         boolean keep = true;
         System.out.println("Please select your desired meat");
@@ -93,17 +110,17 @@ public class SandwichApp {
             if (this.command.equals("d")) {
                 keep = false;
             } else if (this.command.equals("s")) {
-                f.addIngredient(new Ingredient("Steak", 110, 17, 1));
-                chooseMeat(f);
+                sandwich.addIngredient(new Ingredient("Steak", 110, 17, 1, Category.MEAT));
+                chooseMeat();
             } else if (this.command.equals("m")) {
-                f.addIngredient(new Ingredient("Meatball", 230, 12, 5));
-                chooseMeat(f);
+                sandwich.addIngredient(new Ingredient("Meatball", 230, 12, 5, Category.MEAT));
+                chooseMeat();
             } else if (this.command.equals("t")) {
-                f.addIngredient(new Ingredient("Tuna", 250, 12, 0));
-                chooseMeat(f);
+                sandwich.addIngredient(new Ingredient("Tuna", 250, 12, 0, Category.MEAT));
+                chooseMeat();
             } else {
                 System.out.println("Your selection is invalid");
-                chooseMeat(f);
+                chooseMeat();
             }
         }
 
@@ -116,7 +133,7 @@ public class SandwichApp {
         System.out.println("t to select Tuna");
     }
 
-    public void chooseCheese(Sandwich f) {
+    public void chooseCheese() {
         boolean keep = true;
         System.out.println("Please select your desired cheese");
         displayCheeseOptions();
@@ -126,17 +143,17 @@ public class SandwichApp {
             if (this.command.equals("d")) {
                 keep = false;
             } else if (this.command.equals("p")) {
-                f.addIngredient(new Ingredient("Provolone", 50, 4, 0));
-                chooseCheese(f);
+                sandwich.addIngredient(new Ingredient("Provolone", 50, 4, 0, Category.CHEESE));
+                chooseCheese();
             } else if (this.command.equals("a")) {
-                f.addIngredient(new Ingredient("American Cheese", 40, 2, 0));
-                chooseCheese(f);
+                sandwich.addIngredient(new Ingredient("American Cheese", 40, 2, 0, Category.CHEESE));
+                chooseCheese();
             } else if (this.command.equals("s")) {
-                f.addIngredient(new Ingredient("Swiss Cheese", 50, 4, 0));
-                chooseCheese(f);
+                sandwich.addIngredient(new Ingredient("Swiss Cheese", 50, 4, 0, Category.CHEESE));
+                chooseCheese();
             } else {
                 System.out.println("Your selection is invalid");
-                chooseCheese(f);
+                chooseCheese();
             }
         }
 
@@ -149,7 +166,7 @@ public class SandwichApp {
         System.out.println("s to select Swiss Cheese");
     }
 
-    public void chooseVegetable(Sandwich f) {
+    public void chooseVegetable() {
         boolean keep = true;
         System.out.println("Please select your desired vegetable");
         displayVegetableOptions();
@@ -159,17 +176,17 @@ public class SandwichApp {
             if (this.command.equals("d")) {
                 keep = false;
             } else if (this.command.equals("l")) {
-                f.addIngredient(new Ingredient("Lettuce", 0, 0, 0));
-                chooseVegetable(f);
+                sandwich.addIngredient(new Ingredient("Lettuce", 0, 0, 0, Category.VEGETABLE));
+                chooseVegetable();
             } else if (this.command.equals("c")) {
-                f.addIngredient(new Ingredient("Cucumber", 0, 0, 0));
-                chooseVegetable(f);
+                sandwich.addIngredient(new Ingredient("Cucumber", 0, 0, 0, Category.VEGETABLE));
+                chooseVegetable();
             } else if (this.command.equals("o")) {
-                f.addIngredient(new Ingredient("Onion", 0, 0, 0));
-                chooseVegetable(f);
+                sandwich.addIngredient(new Ingredient("Onion", 0, 0, 0, Category.VEGETABLE));
+                chooseVegetable();
             }  else {
                 System.out.println("Your selection is invalid");
-                chooseVegetable(f);
+                chooseVegetable();
             }
         }
 
@@ -182,7 +199,7 @@ public class SandwichApp {
         System.out.println("o to select Onion");
     }
 
-    public void chooseSauce(Sandwich f) {
+    public void chooseSauce() {
         boolean keep = true;
         System.out.println("Please select your desired sauce");
         displaySauceOptions();
@@ -192,17 +209,17 @@ public class SandwichApp {
             if (this.command.equals("d")) {
                 keep = false;
             } else if (this.command.equals("b")) {
-                f.addIngredient(new Ingredient("BBQ Sauce", 25, 0, 5));
-                chooseSauce(f);
+                sandwich.addIngredient(new Ingredient("BBQ Sauce", 25, 0, 5, Category.SAUCE));
+                chooseSauce();
             } else if (this.command.equals("m")) {
-                f.addIngredient(new Ingredient("Mayonnaise", 100, 0, 0));
-                chooseSauce(f);
+                sandwich.addIngredient(new Ingredient("Mayonnaise", 100, 0, 0, Category.SAUCE));
+                chooseSauce();
             } else if (this.command.equals("y")) {
-                f.addIngredient(new Ingredient("Yellow Mustard", 10, 1, 0));
-                chooseSauce(f);
+                sandwich.addIngredient(new Ingredient("Yellow Mustard", 10, 1, 0, Category.SAUCE));
+                chooseSauce();
             }  else {
                 System.out.println("Your selection is invalid");
-                chooseSauce(f);
+                chooseSauce();
             }
         }
     }
@@ -214,18 +231,18 @@ public class SandwichApp {
         System.out.println("y to select Yellow Mustard");
     }
 
-    public void chooseSize(Sandwich f) {
+    public void chooseSize() {
         System.out.println("Please select your sandwich size");
         displaySizeOptions();
         this.command = input.next();
         this.command = this.command.toLowerCase();
         if (this.command.equals("t")) {
-            sixinch = true;
+            this.sandwich.setSixinch(Boolean.TRUE);
         } else if (this.command.equals("f")) {
-            sixinch = false;
+            this.sandwich.setSixinch(Boolean.FALSE);
         } else {
             System.out.println("Your selection is invalid");
-            chooseSize(f);
+            chooseSize();
         }
     }
 
@@ -234,30 +251,63 @@ public class SandwichApp {
         System.out.println("f if it is a foot-long sandwich");
     }
 
-    public void displayNutrition(Sandwich f) {
-        double calorie = f.calculateTotalCalories();
-        double protein = f.calculateTotalProtein();
-        double sugar = f.calculateTotalSugar();
+    public void displayNutrition() {
+        double calorie = sandwich.calculateTotalCalories();
+        double protein = sandwich.calculateTotalProtein();
+        double sugar = sandwich.calculateTotalSugar();
         double ftcal = calorie * 2;
         double ftpro = protein * 2;
         double ftsug = sugar * 2;
 
-        if (sixinch) {
-            System.out.println(f.getName() + " contains " + calorie + " calories, "
+        if (this.sandwich.getSixInch()) {
+            System.out.println(sandwich.getName() + " contains " + calorie + " calories, "
                     + protein + " grams of protein, " + sugar + " grams of sugar.");
         } else {
-            System.out.println((f.getName() + " contains " + ftcal + " calories, "
+            System.out.println((sandwich.getName() + " contains " + ftcal + " calories, "
                     + ftpro + " grams of protein, " + ftsug + " grams of sugar."));
         }
     }
 
-    public void viewIngredients(Sandwich f) {
-        List<String> name = f.allIngredients();
+    public void viewIngredients() {
+        List<String> name = sandwich.allIngredients();
         int i = 0;
         int index = name.size();
         for (i = 0; i < index; i++) {
             String food = name.get(i);
             System.out.println(food);
+        }
+    }
+
+
+    // EFFECTS: saves the sandwich to file
+    private void saveSandwich() {
+        input = new Scanner(System.in);
+        System.out.println("Would you like to save this sandwich?");
+        this.command = input.next();
+        this.command = this.command.toLowerCase();
+        if (this.command.equals("yes")) {
+            try {
+                jsonWriter.open();
+                jsonWriter.write(sandwich);
+                jsonWriter.close();
+                System.out.println("Saved " + sandwich.getName() + " to " + JSON_STORE);
+            } catch (FileNotFoundException e) {
+                System.out.println("Unable to write to file: " + JSON_STORE);
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads sandwich from file
+    private void loadSandwich() {
+        try {
+            sandwich = jsonReader.read();
+
+            System.out.println("Loaded " + sandwich.getName() + " from " + JSON_STORE);
+            viewIngredients();
+            displayNutrition();
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 

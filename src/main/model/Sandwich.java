@@ -2,14 +2,21 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import org.json.JSONObject;
+import org.json.JSONArray;
+import persistence.Writable;
 
+//citation: used given example as sample code
 public class Sandwich implements Writable {
     // Represent the sandwich the user is making
 
     String name;  // the given name to the sandwich
 
     List<Ingredient> sandwich = new ArrayList<>();   // creates a list for ingredients that are in the sandwich
+
+    private boolean sixinch;
 
     private static int totalC;    // setting the initial total calories to 0 as the sandwich is empty
     private static int totalP;    // setting the initial total protein to 0 as the sandwich is empty
@@ -19,6 +26,7 @@ public class Sandwich implements Writable {
     //Effects: Setting n as the name that is given to the sandwich. Creates a new ArrayList named sandwich that
     //contains all the ingredients that is going into the sandwich.
     public Sandwich(String n) {
+        sixinch = false;
         name = n;
         totalC = 0;    // setting the initial total calories to 0 as the sandwich is empty
         totalP = 0;    // setting the initial total protein to 0 as the sandwich is empty
@@ -26,6 +34,26 @@ public class Sandwich implements Writable {
     }
 
 
+
+    public int numOfIngredients() {
+        return sandwich.size();
+    }
+
+    public List<Ingredient> getIngredients() {
+        return Collections.unmodifiableList(sandwich);
+    }
+
+    //Modifies: This
+    //Effects: Sets the size to the given
+    public void setSixinch(Boolean b) {
+        this.sixinch = b;
+    }
+
+
+    //Effects: return whether its six inch or not.
+    public Boolean getSixInch() {
+        return sixinch;
+    }
 
     //Modifies: This
     //Effects: add the given ingredient to end of sandwich.
@@ -91,6 +119,7 @@ public class Sandwich implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
+        json.put("size", sixinch);
         json.put("Ingredients", thingiesToJson());
         return json;
     }
