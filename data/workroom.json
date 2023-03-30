@@ -1,0 +1,48 @@
+{
+    "size": false,
+    "Ingredients": [
+        {
+            "protein": 9,
+            "name": "Italian Herb & Cheese Bread",
+            "calories": 240,
+            "category": "BREAD",
+            "sugar": 5
+        },
+        {
+            "protein": 12,
+            "name": "Meatball",
+            "calories": 230,
+            "category": "MEAT",
+            "sugar": 5
+        },
+        {
+            "protein": 2,
+            "name": "American Cheese",
+            "calories": 40,
+            "category": "CHEESE",
+            "sugar": 0
+        },
+        {
+            "protein": 0,
+            "name": "Lettuce",
+            "calories": 0,
+            "category": "VEGETABLE",
+            "sugar": 0
+        },
+        {
+            "protein": 0,
+            "name": "Cucumber",
+            "calories": 0,
+            "category": "VEGETABLE",
+            "sugar": 0
+        },
+        {
+            "protein": 0,
+            "name": "BBQ Sauce",
+            "calories": 25,
+            "category": "SAUCE",
+            "sugar": 5
+        }
+    ],
+    "name": "jasons"
+}

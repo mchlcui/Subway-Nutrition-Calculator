@@ -69,7 +69,7 @@ public class SandwichApp {
     public Sandwich newSandwich() {
         input = new Scanner(System.in);
         System.out.println("What would you like your sandwich to be called?");
-        this.command = input.next();
+        this.command = input.nextLine();
         this.command = this.command.toLowerCase();
         return new Sandwich(this.command);
     }

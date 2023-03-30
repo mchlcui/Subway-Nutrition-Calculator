@@ -1,0 +1,20 @@
+{
+    "size": false,
+    "Ingredients": [
+        {
+            "protein": 15,
+            "name": "steak",
+            "calories": 220,
+            "category": "MEAT",
+            "sugar": 5
+        },
+        {
+            "protein": 0,
+            "name": "lettuce",
+            "calories": 0,
+            "category": "VEGETABLE",
+            "sugar": 0
+        }
+    ],
+    "name": "My sandwich"
+}

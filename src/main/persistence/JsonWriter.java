@@ -2,6 +2,7 @@ package persistence;
 
 import model.Sandwich;
 import org.json.JSONObject;
+import java.util.List;
 
 //citation: used given example as sample code
 import java.io.*;
@@ -30,6 +31,8 @@ public class JsonWriter {
         JSONObject json = sw.toJson();
         saveToFile(json.toString(TAB));
     }
+
+
 
     // MODIFIES: this
     // EFFECTS: closes the writer
