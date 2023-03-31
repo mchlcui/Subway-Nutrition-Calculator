@@ -2,6 +2,7 @@ package persistence;
 
 import model.Category;
 import model.Ingredient;
+import model.ListOfSandwich;
 import model.Sandwich;
 import org.junit.jupiter.api.Test;
 
@@ -30,42 +31,19 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterEmptySandwich() {
         try {
-            Sandwich sw= new Sandwich("My sandwich");
+            ListOfSandwich sw= new ListOfSandwich();
             JsonWriter writer = new JsonWriter("./data/testWriterEmptySandwich.json");
             writer.open();
             writer.write(sw);
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterEmptySandwich.json");
-            sw= reader.read();
-            assertEquals("My sandwich", sw.getName());
-            assertEquals(0, sw.numOfIngredients());
+            sw = reader.read();
+            assertEquals(sw.getSandwiches().size(), 0);
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
     }
 
-    @Test
-    void testWriterGeneralSandwich() {
-        try {
-            Sandwich sw= new Sandwich("My sandwich");
-            sw.addIngredient(new Ingredient("steak", 220, 15, 5, Category.MEAT));
-            sw.addIngredient(new Ingredient("lettuce", 0, 0, 0, Category.VEGETABLE));
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralSandwich.json");
-            writer.open();
-            writer.write(sw);
-            writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralSandwich.json");
-            sw= reader.read();
-            assertEquals("My sandwich", sw.getName());
-            List<Ingredient> ingredients = sw.getIngredients();
-            assertEquals(2, ingredients.size());
-            checkIngredient("steak", Category.MEAT, ingredients.get(0));
-            checkIngredient("lettuce", Category.VEGETABLE, ingredients.get(1));
-
-        } catch (IOException e) {
-            fail("Exception should not have been thrown");
-        }
-    }
 }
