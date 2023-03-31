@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import model.ListOfSandwich;
 import model.Sandwich;
 import persistence.JsonWriter;
 import persistence.JsonReader;
@@ -17,11 +18,12 @@ import java.util.Set;
 
 public class SaveScreen {
 
-    private static final String JSON_STORE = "./data/sandwich.json";
-    private static JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
-    private static JsonReader jsonReader = new JsonReader(JSON_STORE);
+    private static final String JSON_STORE = "./data/sandwich.json"; // the place JSON is stored to
+    private static JsonWriter jsonWriter = new JsonWriter(JSON_STORE); // JSON writer that is used
+    private static JsonReader jsonReader = new JsonReader(JSON_STORE); // JSON reader that is used
     private static Sandwich sw;
     private static String name;
+    private static boolean clicked;
 
     private static JButton btnSaving = new JButton("Save");
 
@@ -29,12 +31,13 @@ public class SaveScreen {
     private static JButton okButton = new JButton("Okay!");
 
 
-    private static Set<Sandwich> sandwiches = new HashSet<>();
+    private static ListOfSandwich sandwiches = new ListOfSandwich();
 
     public static void main(String[] args) {
         showWindow();
     }
 
+    // shows the save screen frame
 
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public static void showWindow() {
@@ -50,15 +53,19 @@ public class SaveScreen {
         btnSaving.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clicked = true;
                 save.setVisible(false);
                 name = JOptionPane.showInputDialog(save, "Enter Sandwich Name");
-                sw = new Sandwich(name);
-                saveSandwich();
-                sandwiches.add(sw);
-                JOptionPane.showMessageDialog(null, "Successfully Added!");
-                SandwichBuilderMenu sb = new SandwichBuilderMenu();
-                sb.showWindow();
+                if (name != null && clicked) {
 
+                    sw = new Sandwich(name);
+                    sandwiches.addSandwich(sw);
+                    saveSandwich();
+                    JOptionPane.showMessageDialog(null, "Successfully Added!");
+                    SandwichBuilderMenu sb = new SandwichBuilderMenu();
+                    sb.showWindow();
+                    clicked = false;
+                }
 
             }
         });
@@ -78,19 +85,20 @@ public class SaveScreen {
 
     }
 
+    // saves the sandwiches to JSON file
     private static void saveSandwich() {
         try {
             jsonWriter.open();
-            jsonWriter.write(sw);
+            jsonWriter.write(sandwiches);
             jsonWriter.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Unnable to write to file.");
+            System.out.println("Unable to write to file.");
         }
     }
 
-    protected Set<Sandwich> getSandwiches() {
-        return sandwiches;
-    }
+//    protected List<Sandwich> getSandwiches() {
+//        return sandwiches;
+//    }
 
     protected String getName() {
         return name;

@@ -1,5 +1,6 @@
 package persistence;
 
+import model.ListOfSandwich;
 import model.Sandwich;
 import model.Ingredient;
 
@@ -8,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
+
 import org.json.*;
 import model.Category;
 
@@ -24,11 +26,11 @@ public class JsonReader {
 
     // EFFECTS: reads the sandwich and returns it.
     // if there is an error that occurs, then throws an IOexception
-    public Sandwich read() throws IOException {
+    public ListOfSandwich read() throws IOException {
         String data = file(source);
         JSONObject jsobj;
         jsobj = new JSONObject(data);
-        return parseSandwich(jsobj);
+        return parseListOfSandwich(jsobj);
     }
 
     // EFFECTS: reads source file as string and then return.
@@ -43,6 +45,13 @@ public class JsonReader {
     }
 
     // EFFECTS: parses sandwich from JSON object then return
+    private ListOfSandwich parseListOfSandwich(JSONObject jsobj) {
+        ListOfSandwich los = new ListOfSandwich();
+        addSandwiches(los, jsobj);
+        return los;
+    }
+
+    // EFFECTS: parses sandwich from JSON object then return
     private Sandwich parseSandwich(JSONObject jsobj) {
         String name = jsobj.getString("name");
         boolean sixinch = jsobj.getBoolean("size");
@@ -52,11 +61,31 @@ public class JsonReader {
         return sw;
     }
 
+
+    // MODIFIES: Sandwich
+    // EFFECTIONS: parses ingredients from JSON and adds it to
+    private void addSandwiches(ListOfSandwich sw, JSONObject jsobj) {
+        JSONArray jsonArray = jsobj.getJSONArray("sandwiches");
+        for (Object json : jsonArray) {
+            JSONObject nextThing = (JSONObject) json;
+            addSandwich(sw, nextThing);
+        }
+
+    }
+
+    private void addSandwich(ListOfSandwich sw, JSONObject jsobj) {
+        String name = jsobj.getString("name");
+        Sandwich s = new Sandwich(name);
+        addingredients(s, jsobj);
+        sw.addSandwich(s);
+    }
+
+
     // MODIFIES: Sandwich
     // EFFECTIONS: parses ingredients from JSON and adds it to
     private void addingredients(Sandwich sw, JSONObject jsobj) {
         JSONArray jsonArray = jsobj.getJSONArray("Ingredients");
-        for (Object json: jsonArray) {
+        for (Object json : jsonArray) {
             JSONObject nextThing = (JSONObject) json;
             addIngredient(sw, nextThing);
         }

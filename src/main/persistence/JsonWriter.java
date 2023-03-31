@@ -1,5 +1,6 @@
 package persistence;
 
+import model.ListOfSandwich;
 import model.Sandwich;
 import org.json.JSONObject;
 import java.util.List;
@@ -27,7 +28,8 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of sandwich to file
-    public void write(Sandwich sw) {
+
+    public void write(ListOfSandwich sw) {
         JSONObject json = sw.toJson();
         saveToFile(json.toString(TAB));
     }

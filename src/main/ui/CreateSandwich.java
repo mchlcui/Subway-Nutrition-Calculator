@@ -54,6 +54,7 @@ public class CreateSandwich extends JPanel
         list.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(list);
 
+        // action the done button and then going to the save screen
         JButton doneButton = new JButton(donestring);
         doneButton.addActionListener(new ActionListener() {
             @Override
@@ -62,15 +63,18 @@ public class CreateSandwich extends JPanel
                 SaveScreen ss = new SaveScreen();
                 ss.showWindow();
             }
-        });//
+        });
 
 
 
+        // adding a add button that allows you to add more ingredients to a sandwich.
         JButton addButton = new JButton(addstring);
         AddListener addListener = new AddListener(addButton);
         addButton.setActionCommand(addstring);
         addButton.addActionListener(addListener);
         addButton.setEnabled(false);
+
+        // adding a remove button that also actions by removing the selected ingredients
 
         removeButton = new JButton(removeString);
         removeButton.addActionListener(new ActionListener() {
@@ -148,8 +152,6 @@ public class CreateSandwich extends JPanel
             }
 
             listModel.insertElementAt(ingredientName.getText(), index);
-            //If we just wanted to add to the end, we'd do this:
-            //listModel.addElement(ingredientName.getText());
 
             //Reset the text field.
             ingredientName.requestFocusInWindow();
@@ -160,9 +162,6 @@ public class CreateSandwich extends JPanel
             list.ensureIndexIsVisible(index);
         }
 
-        //This method tests for string equality. You could certainly
-        //get more sophisticated about the algorithm.  For example,
-        //you might want to ignore white space and capitalization.
         protected boolean alreadyInList(String name) {
             return listModel.contains(name);
         }
@@ -170,12 +169,12 @@ public class CreateSandwich extends JPanel
         //Required by DocumentListener.
         public void insertUpdate(DocumentEvent e) {
             enableButton();
-        }
+        } // insert update
 
         //Required by DocumentListener.
         public void removeUpdate(DocumentEvent e) {
             handleEmptyTextField(e);
-        }
+        } // remove update
 
         //Required by DocumentListener.
         public void changedUpdate(DocumentEvent e) {
@@ -205,11 +204,11 @@ public class CreateSandwich extends JPanel
         if (e.getValueIsAdjusting() == false) {
 
             if (list.getSelectedIndex() == -1) {
-                //No selection, disable fire button.
+                //No selection, disable remove button.
                 removeButton.setEnabled(false);
 
             } else {
-                //Selection, enable the fire button.
+                //Selection, enable the remove button.
                 removeButton.setEnabled(true);
             }
         }

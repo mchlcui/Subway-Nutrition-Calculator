@@ -30,4 +30,12 @@ to make this process easier and convenient.
 - As a user, I want to be able to load my previous sandwich and make adjustments.
 - As a user, I want to be reminded and given the option to save my sandwich or not.
 
+# Instructions for Grader
+
+- You can generate the first required action related to adding Xs to a Y by typing in something and press add
+- You can generate the second required action related to adding Xs to a Y by selecting a ingredient and clicking remove
+- You can locate my visual component by display image
+- You can save the state of my application by pressing save when done making sandwich
+- You can reload the state of my application by clicking modifyExistingSandwich
+
  
