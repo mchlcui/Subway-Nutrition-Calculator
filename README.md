@@ -13,15 +13,15 @@ it wil generate the **calories, protein, sugar** and such contents.
 
 ## Why is this project of interest to me?
 
-This project has a special meaning due to my experience tracking nutrition in my diet. As a teenager, I was always 
-overweight. One day, I decided that I had enough of it and began my weight loss journey. This started with tracking my 
-calories, and I found it very helpful when restaurants post their calories count. However, Subway is very tricky as you 
+This project has a special meaning due to my experience tracking nutrition in my diet. As a teenager, I was always
+overweight. One day, I decided that I had enough of it and began my weight loss journey. This started with tracking my
+calories, and I found it very helpful when restaurants post their calories count. However, Subway is very tricky as you
 get to decide the ingredients, which causes the nutrition count to fluctuate. Therefore, I am making this application
-to make this process easier and convenient. 
+to make this process easier and convenient.
 
 ## User Stories
 
-- As a user, I want to be able to create a new sandwich. 
+- As a user, I want to be able to create a new sandwich.
 - As a user, I want to be able to view what is in my sandwich.
 - As a user, I want to be able to save a sandwich and view it later.
 - As a user, I want to be able to add ingredients into my new sandwich.
@@ -38,4 +38,20 @@ to make this process easier and convenient.
 - You can save the state of my application by pressing save when done making sandwich
 - You can reload the state of my application by clicking modifyExistingSandwich
 
- 
+# Phase 4: Task 2
+
+Ingredient test ingredient 1 added to Sandwich.
+Ingredient test ingredient 2 added to Sandwich.
+Ingredient test ingredient 3 added to Sandwich.
+Ingredient test ingredient 1 removed from Sandwich.
+Sandwich Test Sandwich! added to ListOfSandwich.
+
+Instruction:
+
+- Run SandwichBuilderMenu
+- Select Create New Sandwich
+- Add the ingredients wanted, remove if wanted.
+- Press Done afterwards
+- Give the sandwich a name and save it.
+- Close the application!
+- Thank you :D

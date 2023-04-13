@@ -1,17 +1,24 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import javax.imageio.ImageIO;
 
 
 public class SandwichBuilderMenu {
 
+    private static JFrame menu = new JFrame("SandwichApp");
     private static JButton btnOpenNewSandwich = new JButton("Create New Sandwich"); // the new sandwich button
     private static JLabel imageLabel;
     private static JButton btnModifySandwich = new JButton("Modify Existing Sandwich"); // modify button
@@ -31,7 +38,6 @@ public class SandwichBuilderMenu {
     // shows the main menu
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public static void showWindow() {
-        JFrame menu = new JFrame("SandwichApp");
 
         menu.setBounds(100,100,450,450);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,6 +46,7 @@ public class SandwichBuilderMenu {
         menu.getContentPane().add(btnOpenNewSandwich);
         menu.getContentPane().add(imageButton);
         menu.setVisible(true);
+        printEventLog();
 
         // sets the new buttons size
 
@@ -94,6 +101,18 @@ public class SandwichBuilderMenu {
         });
 
 
+    }
 
+    private static void printEventLog() {
+        menu.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Iterator<Event> it = EventLog.getInstance().iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    System.out.println(event.getDescription());
+                }
+                System.exit(0);
+            }
+        });
     }
 }

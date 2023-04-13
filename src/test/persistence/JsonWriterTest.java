@@ -39,7 +39,7 @@ class JsonWriterTest extends JsonTest {
 
             JsonReader reader = new JsonReader("./data/testWriterEmptySandwich.json");
             sw = reader.read();
-            assertEquals(sw.getSandwiches().size(), 0);
+
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }

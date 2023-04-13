@@ -5,6 +5,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import model.Category;
+import model.Event;
+import model.EventLog;
+import model.Ingredient;
 import persistence.JsonWriter;
 import persistence.JsonReader;
 
@@ -81,7 +85,10 @@ public class CreateSandwich extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 int index = list.getSelectedIndex();
+                Ingredient i = new Ingredient(ingredientName.getText(), 0, 0, 0, Category.MEAT);
+                i.printRemoved(listModel.get(index));
                 listModel.remove(index);
+
 
                 int size = listModel.getSize();
 
@@ -152,6 +159,8 @@ public class CreateSandwich extends JPanel
             }
 
             listModel.insertElementAt(ingredientName.getText(), index);
+            Ingredient i = new Ingredient(ingredientName.getText(), 0, 0, 0, Category.MEAT);
+            i.print();
 
             //Reset the text field.
             ingredientName.requestFocusInWindow();

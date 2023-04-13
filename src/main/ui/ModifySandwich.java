@@ -107,9 +107,12 @@ package ui;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Iterator;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import model.Event;
+import model.EventLog;
 import model.ListOfSandwich;
 import model.Sandwich;
 import persistence.JsonWriter;
@@ -235,6 +238,7 @@ public class ModifySandwich extends JPanel
 
         add(listScrollPane, BorderLayout.CENTER);
         add(buttonPane, BorderLayout.PAGE_END);
+        printEventLog();
     }
 
     //This listener is shared by the text field and the add button.
@@ -356,5 +360,18 @@ public class ModifySandwich extends JPanel
         } catch (IOException e) {
             System.out.println("Unable to load");
         }
+    }
+
+    private static void printEventLog() {
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Iterator<model.Event> it = EventLog.getInstance().iterator(); it.hasNext(); ) {
+                    Event event = it.next();
+                    System.out.println(event.getDescription());
+                }
+                System.exit(0);
+            }
+        });
     }
 }

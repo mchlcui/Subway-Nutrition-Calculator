@@ -48,6 +48,14 @@ public class Ingredient implements Writable {
         return category;
     }
 
+    public void print() {
+        EventLog.getInstance().logEvent(new Event("Ingredient " + getName() + " added to Sandwich."));
+    }
+
+    public void printRemoved(Object s) {
+        EventLog.getInstance().logEvent(new Event("Ingredient " + s + " removed from Sandwich."));
+    }
+
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

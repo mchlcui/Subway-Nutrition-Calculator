@@ -23,6 +23,7 @@ public class ListOfSandwich implements Writable {
     //MODIFIES: sandwich
     public void addSandwich(Sandwich sw) {
         sandwiches.add(sw);
+        EventLog.getInstance().logEvent(new Event("Sandwich " + sw.getName() + " added to ListOfSandwich."));
     }
 
     public Sandwich getSandwich(int i) {
