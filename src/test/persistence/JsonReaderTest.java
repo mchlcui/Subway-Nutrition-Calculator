@@ -1,14 +1,10 @@
 package persistence;
 
 
-import model.Category;
-import model.Ingredient;
 import model.ListOfSandwich;
-import model.Sandwich;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

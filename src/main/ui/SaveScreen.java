@@ -17,7 +17,7 @@ import java.util.Set;
 
 
 public class SaveScreen {
-
+    // Represent the save menu
     private static final String JSON_STORE = "./data/sandwich.json"; // the place JSON is stored to
     private static JsonWriter jsonWriter = new JsonWriter(JSON_STORE); // JSON writer that is used
     private static JsonReader jsonReader = new JsonReader(JSON_STORE); // JSON reader that is used
@@ -40,6 +40,7 @@ public class SaveScreen {
     // shows the save screen frame
 
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    //Effects: Exits the main menu and opens the save screen
     public static void showWindow() {
         JFrame save = new JFrame("Save?");
 
@@ -85,7 +86,7 @@ public class SaveScreen {
 
     }
 
-    // saves the sandwiches to JSON file
+    // Effects: saves the sandwiches to JSON file
     private static void saveSandwich() {
         try {
             jsonWriter.open();
@@ -100,9 +101,6 @@ public class SaveScreen {
 //        return sandwiches;
 //    }
 
-    protected String getName() {
-        return name;
-    }
 }
 
 

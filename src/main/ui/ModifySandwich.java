@@ -121,6 +121,7 @@ import persistence.JsonReader;
 /* ListDemo.java requires no other files. */
 public class ModifySandwich extends JPanel
         implements ListSelectionListener {
+    // Represent the modifying menu
     private JList list;
     private DefaultListModel listModel;
 
@@ -140,6 +141,7 @@ public class ModifySandwich extends JPanel
     private static JFrame frame = new JFrame("Sandwich Builder");
     private JTextField ingredientName;
 
+    //Effects: Exits the main menu and opens the Modify Sandwich screen
     public static void showWindow() {
         //Create and set up the window.
         loadSandwiches();
@@ -157,6 +159,7 @@ public class ModifySandwich extends JPanel
     }
 
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    //Modifies: It modifies the listModel that is given by adding or removing elements.
     public ModifySandwich() {
         super(new BorderLayout());
 
@@ -306,12 +309,14 @@ public class ModifySandwich extends JPanel
             }
         }
 
+        //Effects: It enables the button if it is not already enabled
         private void enableButton() {
             if (!alreadyEnabled) {
                 button.setEnabled(true);
             }
         }
 
+        //Requires: An empty text field
         private boolean handleEmptyTextField(DocumentEvent e) {
             if (e.getDocument().getLength() <= 0) {
                 button.setEnabled(false);
@@ -343,10 +348,9 @@ public class ModifySandwich extends JPanel
      * event-dispatching thread.
      */
 
-
+    //Effects: creating and showing this application's GUI.
     public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
+
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 showWindow();
@@ -354,6 +358,7 @@ public class ModifySandwich extends JPanel
         });
     }
 
+    //Effects: Loads the sandwiches that were saved into JSON
     private static void loadSandwiches() {
         try {
             sandwiches = jsonReader.read();
@@ -362,6 +367,7 @@ public class ModifySandwich extends JPanel
         }
     }
 
+    //Effects: Prints the events that occured.
     private static void printEventLog() {
         frame.addWindowListener(new WindowAdapter() {
             @Override

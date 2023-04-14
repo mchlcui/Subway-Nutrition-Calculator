@@ -15,8 +15,11 @@ import persistence.JsonReader;
 /* ListDemo.java requires no other files. */
 public class CreateSandwich extends JPanel
         implements ListSelectionListener {
+    // Represent the create sandwich menu
     private JList list;
     private DefaultListModel listModel;
+
+    private static Ingredient i;
 
     private static final String donestring = "Done";
     private static final String addstring = "Add";
@@ -27,8 +30,9 @@ public class CreateSandwich extends JPanel
     private static JFrame frame = new JFrame("Sandwich Builder");
     private JTextField ingredientName;
 
+    //Effects: Create and set up the window.
     public static void createAndShowGUI() {
-        //Create and set up the window.
+
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -85,7 +89,7 @@ public class CreateSandwich extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 int index = list.getSelectedIndex();
-                Ingredient i = new Ingredient(ingredientName.getText(), 0, 0, 0, Category.MEAT);
+                i = new Ingredient(ingredientName.getText(), 0, 0, 0, Category.MEAT);
                 i.printRemoved(listModel.get(index));
                 listModel.remove(index);
 
@@ -192,12 +196,14 @@ public class CreateSandwich extends JPanel
             }
         }
 
+        // Effect: Enables Button
         private void enableButton() {
             if (!alreadyEnabled) {
                 button.setEnabled(true);
             }
         }
 
+        //Requires: An empty text field
         private boolean handleEmptyTextField(DocumentEvent e) {
             if (e.getDocument().getLength() <= 0) {
                 button.setEnabled(false);

@@ -55,3 +55,14 @@ Instruction:
 - Give the sandwich a name and save it.
 - Close the application!
 - Thank you :D
+
+# Phase 4: Task 3
+
+Refactoring:
+It would have been a good idea to create an abstract class because of how similar my CreateSandwich
+and my ModifySandwich classes were. For instance, they both create the same frame with an add and remove button, the 
+only thing different would be the elements in the list which do not affect the design. Therefore, having an abstract 
+class would significantly reduce the amount of code duplication. Another advantage of this refactoring would be that 
+it will take less time to implement future changes to the UI package. It would be much quicker to make changes in the 
+abstract methods than to implement it separately. This way it also lessens the risks of mistakes!
+

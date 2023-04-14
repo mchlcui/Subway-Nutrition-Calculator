@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
 
 
 public class SandwichBuilderMenu {
-
+    // Represent the main menu
     private static JFrame menu = new JFrame("SandwichApp");
     private static JButton btnOpenNewSandwich = new JButton("Create New Sandwich"); // the new sandwich button
     private static JLabel imageLabel;
@@ -35,7 +35,7 @@ public class SandwichBuilderMenu {
         showWindow();
     }
 
-    // shows the main menu
+    // Effect: shows the main menu
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public static void showWindow() {
 
@@ -103,6 +103,7 @@ public class SandwichBuilderMenu {
 
     }
 
+    // Effect: Prints all the events that were logged
     private static void printEventLog() {
         menu.addWindowListener(new WindowAdapter() {
             @Override
